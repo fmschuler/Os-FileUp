@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity{
     /*-- CUSTOMIZE --*/
     /*-- you can customize these options for your convenience --*/
     private static String webview_url   = "file:///android_res/raw/index.html";    // web address or local file location you want to open in webview
-    private static String file_type     = "image/*";    // file types to be allowed for upload
+    private static String file_type     = "*/*";
+    private static String[] mimetypes   = {"image/*", "video/*"};    // file types to be allowed for upload
     private boolean multiple_files      = true;         // allowing multiple file upload
 
     /*-- MAIN VARIABLES --*/
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity{
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType(file_type);
+                i.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
                 if (multiple_files && Build.VERSION.SDK_INT >= 18) {
                     i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 }
@@ -218,6 +220,7 @@ public class MainActivity extends AppCompatActivity{
                     Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
                     contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
                     contentSelectionIntent.setType(file_type);
+                    contentSelectionIntent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
                     if (multiple_files) {
                         contentSelectionIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                     }
